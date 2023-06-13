@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { nanoid } from "@reduxjs/toolkit";
 import { postAdded } from "./postsSlice";
 
 export const AddPostForm = () => {
@@ -14,7 +13,7 @@ export const AddPostForm = () => {
     setTitle(target.value);
   const onContentChanged = ({ target }: { target: HTMLTextAreaElement }) =>
     setContent(target.value);
-  const onAuthorChanged = ({ target }: { target: HTMLInputElement }) =>
+  const onAuthorChanged = ({ target }: { target: HTMLSelectElement }) =>
     setUserId(target.value);
 
   const dispatch = useAppDispatch();
