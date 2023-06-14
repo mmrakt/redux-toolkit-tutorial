@@ -1,13 +1,24 @@
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import PostAuthor from "./PostAuthor";
 import { TimeAgo } from "./TimeAgo";
 import ReactionButtons from "./ReactionButtons";
+import { useEffect } from "react";
+import { fetchPosts } from "./postsSlice";
 
 export const PostsList = () => {
+  const dispatch = useAppDispatch();
   const posts = useAppSelector((state) => state.posts);
 
-  const renderedPosts = posts.map((post) => (
+  const postStatus = useAppSelector((state) => state.posts.status);
+
+  useEffect(() => {
+    if (postStatus === "idle") {
+      dispatch(fetchPosts());
+    }
+  }, [postStatus, dispatch]);
+
+  const renderedPosts = posts.posts.map((post) => (
     <article className="post-excerpt" key={post.id}>
       <h3>{post.title}</h3>
       <div>
